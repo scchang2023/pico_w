@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"name": "pico_w",
+			"path": "."
+		},
+		{
+			"name": "serial:/COM7",
+			"uri": "serial://com7/"
+		}
+	]
+}
