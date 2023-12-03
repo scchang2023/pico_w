@@ -54,19 +54,20 @@ build_in_led=machine.Pin("LED", machine.Pin.OUT)
 led.off()
 build_in_led.off()
 
-if connect_to_internet(ssid, password) == 3:
+wlan_status = connect_to_internet(ssid, password)
+if wlan_status == 3:
+    BLYNK = Blynk(blynk_token)
     build_in_led.on()
+    # Register virtual pin handler
+    @BLYNK.on("V2") #virtual pin V0
+    def v0_write_handler(value): #read the value
+        if int(value[0]) == 1:
+            led.value(1) #turn the led on        
+        else:
+            led.value(0) #turn the led off
 else:
     build_in_led.off()
 
-BLYNK = Blynk(blynk_token)
-# Register virtual pin handler
-@BLYNK.on("V2") #virtual pin V0
-def v0_write_handler(value): #read the value
-    if int(value[0]) == 1:
-        led.value(1) #turn the led on        
-    else:
-        led.value(0) #turn the led off
 while True:
     try:
         sensor.measure()
@@ -79,9 +80,10 @@ while True:
         lcd.move_to(0,1)
         str1 = f"hum:{humidity} %"
         lcd.putstr(str1)
-        BLYNK.virtual_write(0, temp)
-        BLYNK.virtual_write(1, humidity)
-        BLYNK.run()
+        if wlan_status == 3:
+            BLYNK.virtual_write(0, temp)
+            BLYNK.virtual_write(1, humidity)
+            BLYNK.run()
     except:
         print("Checksum from the sensor was invalid")
     utime.sleep(1)
