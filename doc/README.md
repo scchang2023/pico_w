@@ -9,6 +9,8 @@
 
 - [thonny開發軟體下載](https://thonny.org/)
 
+- [Raspberry Pi Pico W的韌體網頁](https://micropython.org/download/RPI_PICO_W/)
+
 - 外觀圖
 ![Alt text](./icons/pico_overview.jpg)
 
@@ -47,7 +49,7 @@ Pico W的外觀尺寸和接腳，也跟Pico板一樣，兩側各有20個引腳�
 
 - 燒錄Pico W韌體的方式跟Pico板一樣，先按著“BOOTSEL”（啟動選擇）鍵，再將開發板插入電腦USB，然後放開按鍵，電腦會將開發板識別成USB磁碟。
 ![Alt text](./icons/pio_usb.png)
-從MicroPython的Raspberry Pi Pico W的韌體網頁，下載韌體檔（.uf2格式），再將它拖入Pico W板的「USB磁碟」，它就會自動燒錄韌體並重新啟動。
+從MicroPython的[Raspberry Pi Pico W的韌體網頁](https://micropython.org/download/RPI_PICO_W/)，下載韌體檔（.uf2格式），再將它拖入Pico W板的「USB磁碟」，它就會自動燒錄韌體並重新啟動。
 ![Alt text](./icons/PR_drive.png)
 - 另一個燒錄韌體的辦法是透過Thonny IDE，可省去自行下載韌體的步驟。
 
