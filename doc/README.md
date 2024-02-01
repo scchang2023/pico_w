@@ -3,9 +3,11 @@
 
 ## pico-w 簡介
 
-- [官網文件](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html)
+- [官方文件](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html)
 
 - [官方教學網站](https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico)
+
+- [pico Examples](https://github.com/raspberrypi/pico-micropython-examples/tree/master)
 
 - [thonny開發軟體下載](https://thonny.org/)
 
@@ -61,3 +63,8 @@ Pico W的外觀尺寸和接腳，也跟Pico板一樣，兩側各有20個引腳�
 ![Alt text](./icons/flash_micropython_3.png)
 1. 按下「確認」，從Thonny IDE的「互動環境（Shell）」可看到已成功連上Pico W開發板。
 ![Alt text](./icons/flash_micropython_4.png)
+
+## 內建硬體
+
+- 計時器：Pico 有自帶計時器(硬體計時器)
+[01_timer.py](../01_timer.py)
