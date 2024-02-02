@@ -69,9 +69,11 @@ Pico W的外觀尺寸和接腳，也跟Pico板一樣，兩側各有20個引腳�
 - 計時器：Pico 有自帶計時器(硬體計時器)
 
   [01_timer.py](../sample_codes/01_timer.py)
-- RTC：Pico 有自帶實時時鐘
+- RTC(Real Time Clock)：Pico 有自帶實時時鐘
   - 取得目前日期
   - RTC的時間是取得電腦的時間(當電腦連線時是正常的現在日期和時間)
   - 當單獨運作時(無連接電腦,所以要透過RTC sensor,或wifi取得目前的時間)
 
   [02_RTC.py](../sample_codes/02_RTC.py)
+- WTD(Watch Dog Timer)：重新啟動，倒數計時
+  []
