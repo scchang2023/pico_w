@@ -76,4 +76,16 @@ Pico W的外觀尺寸和接腳，也跟Pico板一樣，兩側各有20個引腳�
 
   [02_RTC.py](../sample_codes/02_RTC.py)
 - WTD(Watch Dog Timer)：重新啟動，倒數計時
-  []
+
+  [03_WDT.py](../sample_codes/03_WDT.py)
+
+- 內建LED：使用字串"LED" 或 "WL_GPIO0"
+
+  [04_LED.py](../sample_codes/04_LED.py)
+- 內建板子溫度感測器(ADC)
+  - ADC為12-bit(0~4095)
+  - RP2024提供5個ADC(channel 0~4)
+  - GP26,GP27,GP28->一般使用
+  - GP29->可以測量目主機版電壓(VSYS)
+  - 最後一個為溫度感測器專用
+  
