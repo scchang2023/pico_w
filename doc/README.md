@@ -67,4 +67,4 @@ Pico W的外觀尺寸和接腳，也跟Pico板一樣，兩側各有20個引腳�
 ## 內建硬體
 
 - 計時器：Pico 有自帶計時器(硬體計時器)
-[01_timer.py](../01_timer.py)
+[01_timer.py](../sample_codes/01_timer.py)
