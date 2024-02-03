@@ -5,7 +5,7 @@ import time
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-wlan.connect('linkou_203_1F-5G','56665666')
+wlan.connect('scchang_iphone','0928136004')
 
 while not wlan.isconnected() and wlan.status() >= 0:
     print("Waiting to connect:")

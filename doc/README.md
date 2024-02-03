@@ -100,9 +100,13 @@ Pico W的外觀尺寸和接腳，也跟Pico板一樣，兩側各有20個引腳�
 - Threads 執行緒：
   - 只有2Core
   - 所以1次只可以建立一個thread
-  
-  [07_Thread.py](../sample_codes/07_Thread.py)
+
+    [07_Thread.py](../sample_codes/07_Thread.py)
 
 - 連接 Wifi：
   - 檢查是否可以連線，並顯示連線資訊。
-  - 
+
+    [08_wifi1.py](../sample_codes/08_wifi1.py)
+  - 連線，並檢查內線狀態資訊。
+
+    [08_wifi2.py](../sample_codes/08_wifi2.py)
