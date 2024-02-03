@@ -92,5 +92,17 @@ Pico W的外觀尺寸和接腳，也跟Pico板一樣，兩側各有20個引腳�
   [05_ADC_read_temp.py](../sample_codes/05_ADC_read_temp.py)
   
   [05_ADC_read_alert.py](../sample_codes/05_ADC_read_alert.py)
-- 中斷_interrupt_IRQ
+- IRQ 中斷：
+  - Pin.IRQ_FALLING(1->0)
+  - Pin.IRQ_RISING,(0->1)
   
+  [06_IRQ.py](../sample_codes/06_IRQ.py)
+- Threads 執行緒：
+  - 只有2Core
+  - 所以1次只可以建立一個thread
+  
+  [07_Thread.py](../sample_codes/07_Thread.py)
+
+- 連接 Wifi：
+  - 檢查是否可以連線，並顯示連線資訊。
+  - 
