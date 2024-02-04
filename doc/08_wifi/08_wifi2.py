@@ -29,4 +29,3 @@ else:
     print('連線成功')
     status = wlan.ifconfig()
     print(f'ip={status[0]}')
-

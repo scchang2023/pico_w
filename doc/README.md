@@ -66,47 +66,18 @@ Pico W的外觀尺寸和接腳，也跟Pico板一樣，兩側各有20個引腳�
 
 ## 內建硬體
 
-- 計時器：Pico 有自帶計時器(硬體計時器)
+### [Timer 計時器](./01_timer/README.md)
 
-  [01_timer.py](../sample_codes/01_timer.py)
-- RTC(Real Time Clock)：Pico 有自帶實時時鐘
-  - 取得目前日期
-  - RTC的時間是取得電腦的時間(當電腦連線時是正常的現在日期和時間)
-  - 當單獨運作時(無連接電腦,所以要透過RTC sensor,或wifi取得目前的時間)
+### [RTC(Real Time Clock) 實時時鐘](./02_RTC/README.md)
 
-  [02_RTC.py](../sample_codes/02_RTC.py)
-- WTD(Watch Dog Timer)：重新啟動，倒數計時
+### [WTD(Watch Dog Timer) 重新啟動](./03_WDT/README.md)
 
-  [03_WDT.py](../sample_codes/03_WDT.py)
+### [build-in LED 內建LED](./04_LED/README.md)
 
-- 內建LED：使用字串"LED" 或 "WL_GPIO0"
+### [ADC 內建溫度感測器](./05_ADC/README.md)
 
-  [04_LED.py](../sample_codes/04_LED.py)
-- 內建板子溫度感測器(ADC)
-  - ADC為12-bit(0~4095)
-  - RP2024提供5個ADC(channel 0~4)
-  - GP26,GP27,GP28->一般使用
-  - GP29->可以測量目主機版電壓(VSYS)
-  - 最後一個為溫度感測器專用
-  
-  [05_ADC_read_temp.py](../sample_codes/05_ADC_read_temp.py)
-  
-  [05_ADC_read_alert.py](../sample_codes/05_ADC_read_alert.py)
-- IRQ 中斷：
-  - Pin.IRQ_FALLING(1->0)
-  - Pin.IRQ_RISING,(0->1)
-  
-  [06_IRQ.py](../sample_codes/06_IRQ.py)
-- Threads 執行緒：
-  - 只有2Core
-  - 所以1次只可以建立一個thread
+### [IRQ 中斷](./06_IRQ/README.md)
 
-    [07_Thread.py](../sample_codes/07_Thread.py)
+### [Thread 執行緒使用](./07_thread/README.md)
 
-- 連接 Wifi：
-  - 檢查是否可以連線，並顯示連線資訊。
-
-    [08_wifi1.py](../sample_codes/08_wifi1.py)
-  - 連線，並檢查內線狀態資訊。
-
-    [08_wifi2.py](../sample_codes/08_wifi2.py)
+### [Wifi 連線](./08_wifi/README.md)
