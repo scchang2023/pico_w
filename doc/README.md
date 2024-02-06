@@ -81,3 +81,9 @@ Pico W的外觀尺寸和接腳，也跟Pico板一樣，兩側各有20個引腳�
 ### [Thread 執行緒使用](./07_thread/README.md)
 
 ### [Wifi 連線](./08_wifi/README.md)
+
+### [Wifi 連線 - 使用 module 方式](./09_wifi/README.md)
+
+### [當作 Web Server 使用](./10_web_server/README.md)
+
+## 外接硬體
