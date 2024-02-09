@@ -1,7 +1,7 @@
 # Button & LED
 
 - button 使用 GPIO14， led 使用 GPIO15 來做測試，線路圖如下：
-  ![線路圖](../icons/button_led.png)
+  ![線路圖](./button_led.png)
 
 - 此測試程式，每按一次按鈕，LED則會反向一次
 
