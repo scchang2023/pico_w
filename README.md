@@ -1,3 +1,3 @@
 # pico_w
 
-## [index](./doc/index/README.md)
+## [文件首頁](./doc/README.md)
