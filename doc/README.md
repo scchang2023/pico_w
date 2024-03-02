@@ -1,8 +1,6 @@
 
 # pico-w
 
-## pico-w 簡介
-
 - [官方文件](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html)
 
 - [官方教學網站](https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico)
@@ -19,14 +17,14 @@
 - Raspberry Pi Pico W開發板（以下簡稱Pico W）是搭載無線通訊晶片的Raspberry Pi Pico開發板，主要規格如下：
 
 1. 工作電壓：1.8 ~ 5.5V
-2. 微控器：採用樹莓派基金會研發設計的RP2040，內部是32位元雙核心ARM Cortex-M0+，運作時脈133MHz。
-3. SRAM 大小：264KB
-4. 快閃記憶體容量：2MB（QSPI介面）
-5. Wi-Fi無線通訊功能：2.4GHz 802.11n
-6. Bluetooth藍牙通訊功能：暫缺
-7. GPIO引腳：26個，包括3個類比輸入腳、16 個PWM通道。
-8. 序列通訊介面：2個UART、2個SPI 控制器和2個I2C 控制器。
-9. USB介面：內建USB 1.1控制器和PHY，支援主控端（host）和設備端（device）。
+1. 微控器：採用樹莓派基金會研發設計的RP2040，內部是32位元雙核心ARM Cortex-M0+，運作時脈133MHz。
+1. SRAM 大小：264KB
+1. 快閃記憶體容量：2MB（QSPI介面）
+1. Wi-Fi無線通訊功能：2.4GHz 802.11n
+1. Bluetooth藍牙通訊功能：暫缺
+1. GPIO引腳：26個，包括3個類比輸入腳、16 個PWM通道。
+1. 序列通訊介面：2個UART、2個SPI 控制器和2個I2C 控制器。
+1. USB介面：內建USB 1.1控制器和PHY，支援主控端（host）和設備端（device）。
 
 - Raspberry Pi Pico W開發板的接腳
 Pico W的外觀尺寸和接腳，也跟Pico板一樣，兩側各有20個引腳，採郵票孔設計，方便下游廠商以表面黏著方式把此開發板焊接到產品的主板。
@@ -88,4 +86,4 @@ Pico W的外觀尺寸和接腳，也跟Pico板一樣，兩側各有20個引腳�
 
 ## 外接硬體
 
-### [Btton & LED](./1_01_button&led/README.md)
+### [Button & LED](./1_01_button&led/README.md)
