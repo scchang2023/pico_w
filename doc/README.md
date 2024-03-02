@@ -1,5 +1,7 @@
 
-# pico-w
+# pico_w
+
+## pico_w 簡介
 
 - [官方文件](https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html)
 
