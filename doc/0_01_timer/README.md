@@ -2,6 +2,7 @@
 # Timer 計時器
 
 `from machine import Timer`
+
 - 執行一次
 
 ```python
@@ -28,4 +29,5 @@ def run10(t):
 i=0
 timer = Timer(period=1000, mode=Timer.PERIODIC, callback=lambda t:run10(t))
 ```
+
 [timer.py](./timer.py)
