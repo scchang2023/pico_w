@@ -14,6 +14,8 @@ ssid = "scchang_iphone"
 # password = "56665666"
 password = "0928136004"
 blynk_token = "BBITOQPAWXszFKZzMp6YKlQ-88vRqAl0"
+temp_setting_high = 30
+temp_setting_low = 28
 
 def wifi_connect(ssid, password):
     # Pass in string arguments for ssid and password
@@ -58,13 +60,21 @@ def lcd_init():
     lcd = I2cLcd(i2c, I2C_ADDR, I2C_NUM_ROWS, I2C_NUM_COLS)
     return lcd
 
-def lcd_display_temp_humi(lcd, temp, humi):
-    str1 = f"temp:{temp} *C"
+def lcd_display_cur_temp_humi(lcd, temp, humi):
+    str1 = f"CT:{temp}"
     lcd.move_to(0,0)
     lcd.putstr(str1)
+    lcd.move_to(8,0)
+    str1 = f"CH:{humi}"
+    lcd.putstr(str1)
+
+def lcd_display_temp_setting(lcd, temp_setting_high, temp_setting_low):
+    str1 = f"SH:{temp_setting_high}"
     lcd.move_to(0,1)
-    str1 = f"hum:{humi} %"
-    lcd.putstr(str1)    
+    lcd.putstr(str1)
+    lcd.move_to(8,1)
+    str1 = f"SL:{temp_setting_low}"
+    lcd.putstr(str1) 
 
 def led_init():
     led=machine.Pin(15, machine.Pin.OUT)
@@ -77,7 +87,8 @@ def main():
     sensor = dht11_init()
     lcd = lcd_init()
     led, build_in_led = led_init()
-    wlan_status = wifi_connect(ssid, password)
+    # wlan_status = wifi_connect(ssid, password)
+    wlan_status = 0
 
     if wlan_status == 3:
         BLYNK = Blynk(blynk_token)
@@ -95,12 +106,13 @@ def main():
     while True:
         try:
             temp, humi = dht11_get_temp_humi(sensor)
-            print(temp, humi)
-            lcd_display_temp_humi(lcd, temp, humi)
-            #if wlan_status == 3:
-            #    BLYNK.virtual_write(0, temp)
-            #    BLYNK.virtual_write(1, humi)
-            #    BLYNK.run()
+            print(f"CT:{temp}, CH:{humi}, SH:{temp_setting_high}, SL:{temp_setting_low}")
+            lcd_display_cur_temp_humi(lcd, temp, humi)
+            lcd_display_temp_setting(lcd, temp_setting_high, temp_setting_low)
+            if wlan_status == 3:
+                BLYNK.virtual_write(0, temp)
+                BLYNK.virtual_write(1, humi)
+                BLYNK.run()
         except:
             print("The checksum of dht11 was invalid")
         utime.sleep(1)
