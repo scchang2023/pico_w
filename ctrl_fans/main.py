@@ -111,6 +111,7 @@ def main():
     else:
         build_in_led.off()
 
+    utime.sleep(1)
     while True:
         try:
             cur_temp, cur_humi = dht11_get_temp_humi(sensor)
