@@ -14,8 +14,7 @@ ssid = "scchang_iphone"
 # password = "56665666"
 password = "0928136004"
 blynk_token = "BBITOQPAWXszFKZzMp6YKlQ-88vRqAl0"
-temp_setting_high = 30
-temp_setting_low = 28
+temp_setting = 30
 
 def wifi_connect(ssid, password):
     # Pass in string arguments for ssid and password
@@ -68,25 +67,34 @@ def lcd_display_cur_temp_humi(lcd, temp, humi):
     str1 = f"CH:{humi}"
     lcd.putstr(str1)
 
-def lcd_display_temp_setting(lcd, temp_setting_high, temp_setting_low):
-    str1 = f"SH:{temp_setting_high}"
+def lcd_display_temp_setting(lcd, temp_setting):
+    str1 = f"TS:{temp_setting}"
     lcd.move_to(0,1)
     lcd.putstr(str1)
-    lcd.move_to(8,1)
-    str1 = f"SL:{temp_setting_low}"
-    lcd.putstr(str1) 
 
-def led_init():
-    led=machine.Pin(15, machine.Pin.OUT)
+def build_led_init():
+    # led=machine.Pin(15, machine.Pin.OUT)
     build_in_led=machine.Pin("LED", machine.Pin.OUT)
-    led.off()
+    # led.off()
     build_in_led.off()
-    return led, build_in_led
+    return build_in_led
+
+def fans_init():
+    fans=machine.Pin(15, machine.Pin.OUT)
+    fans.off()
+    return fans
+
+def auto_turnon_fans(fans, cur_temp, temp_setting):
+    if cur_temp >= temp_setting:
+        fans.on()
+    else:
+        fans.off()
 
 def main():
     sensor = dht11_init()
     lcd = lcd_init()
-    led, build_in_led = led_init()
+    build_in_led = build_led_init()
+    fans = fans_init()
     # wlan_status = wifi_connect(ssid, password)
     wlan_status = 0
 
@@ -105,10 +113,11 @@ def main():
 
     while True:
         try:
-            temp, humi = dht11_get_temp_humi(sensor)
-            print(f"CT:{temp}, CH:{humi}, SH:{temp_setting_high}, SL:{temp_setting_low}")
-            lcd_display_cur_temp_humi(lcd, temp, humi)
-            lcd_display_temp_setting(lcd, temp_setting_high, temp_setting_low)
+            cur_temp, cur_humi = dht11_get_temp_humi(sensor)
+            print(f"CT:{cur_temp}, CH:{cur_humi}, TS:{temp_setting}")
+            lcd_display_cur_temp_humi(lcd, cur_temp, cur_humi)
+            lcd_display_temp_setting(lcd, temp_setting)
+            auto_turnon_fans(fans, cur_temp, temp_setting)
             if wlan_status == 3:
                 BLYNK.virtual_write(0, temp)
                 BLYNK.virtual_write(1, humi)
