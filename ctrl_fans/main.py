@@ -63,8 +63,11 @@ def temp_setting_pin_init():
 
 def temp_setting_pin_read(pot):
     value = pot.read_u16()  # 回傳值範圍為 0 ~ 65535（16位）
-    voltage = 3.3 * value / 65535  # 轉換為電壓值
-    print("ADC值:", value, "電壓: {:.2f}V".format(voltage))    
+    # voltage = 3.3 * value / 65535  # 轉換為電壓值
+    # print("ADC值:", value, "電壓: {:.2f}V".format(voltage))
+    ts = 10 + int(50 * value / 65535)
+    print("ADC:", value, "ts:", ts)
+    return ts
 
 def main():
     sensor = dht11_init()
@@ -77,11 +80,11 @@ def main():
     while True:
         try:
             cur_temp, cur_humi = dht11_get_temp_humi(sensor)
-            print(f"CT:{cur_temp}, CH:{cur_humi}, TS:{TEMP_SETTING_DEFAULT}")
             lcd_display_cur_temp_humi(lcd, cur_temp, cur_humi)
-            lcd_display_cur_ts(lcd, TEMP_SETTING_DEFAULT)
-            temp_setting_pin_read(pot)
-            fans_auto_turn_on(fans, cur_temp, TEMP_SETTING_DEFAULT)
+            cur_ts = temp_setting_pin_read(pot)
+            lcd_display_cur_ts(lcd, cur_ts)
+            print(f"CT:{cur_temp}, CH:{cur_humi}, TS:{cur_ts}")
+            fans_auto_turn_on(fans, cur_temp, cur_ts)
         except:
             print("The checksum of dht11 was invalid")
         utime.sleep(1)
