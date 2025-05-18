@@ -1,45 +1,12 @@
-from machine import I2C,Pin
+from machine import I2C, Pin, ADC
 import utime
-import network
 import sys
 sys.path.append("/lib")
-from blynklib import Blynk
 from dht import DHT11
 from lcd_api import LcdApi
 from pico_i2c_lcd import I2cLcd
 
-# ssid = "linkou_203_1F"
-# ssid = "linkou203-4F"
-ssid = "scchang_iphone"
-# password = "56665666"
-password = "0928136004"
-blynk_token = "BBITOQPAWXszFKZzMp6YKlQ-88vRqAl0"
-temp_setting = 30
-
-def wifi_connect(ssid, password):
-    # Pass in string arguments for ssid and password
-    # Just making our internet connection
-    wlan = network.WLAN(network.STA_IF)
-    wlan.active(True)
-    wlan.connect(ssid, password)
-    # Wait for connect or fail
-    max_wait = 10
-    while max_wait > 0:
-        print(wlan.status(), max_wait)
-        if wlan.status() < 0 or wlan.status() >= 3:
-            break
-        max_wait -= 1
-        print('wait for connecting.')
-        utime.sleep(1)
-    print(wlan.status())
-    if wlan.status() != 3:
-        # raise RuntimeError('network connection failed')
-        print('failed to connect wifi.')
-    else:
-        print('connected')
-        status = wlan.ifconfig()
-    
-    return wlan.status()
+TEMP_SETTING_DEFAULT = 25
     
 def dht11_init():
     sensor = DHT11(Pin(22, Pin.OUT, Pin.PULL_DOWN))
@@ -67,12 +34,12 @@ def lcd_display_cur_temp_humi(lcd, temp, humi):
     str1 = f"CH:{humi}"
     lcd.putstr(str1)
 
-def lcd_display_temp_setting(lcd, temp_setting):
-    str1 = f"TS:{temp_setting}"
+def lcd_display_cur_ts(lcd, ts):
+    str1 = f"TS:{ts}"
     lcd.move_to(0,1)
     lcd.putstr(str1)
 
-def build_led_init():
+def build_in_led_init():
     # led=machine.Pin(15, machine.Pin.OUT)
     build_in_led=machine.Pin("LED", machine.Pin.OUT)
     # led.off()
@@ -84,45 +51,37 @@ def fans_init():
     fans.off()
     return fans
 
-def auto_turnon_fans(fans, cur_temp, temp_setting):
-    if cur_temp >= temp_setting:
+def fans_auto_turn_on(fans, cur_temp, cur_ts):
+    if cur_temp >= cur_ts:
         fans.on()
     else:
         fans.off()
 
+def temp_setting_pin_init():
+    pot = ADC(Pin(26))
+    return pot
+
+def temp_setting_pin_read(pot):
+    value = pot.read_u16()  # 回傳值範圍為 0 ~ 65535（16位）
+    voltage = 3.3 * value / 65535  # 轉換為電壓值
+    print("ADC值:", value, "電壓: {:.2f}V".format(voltage))    
+
 def main():
     sensor = dht11_init()
     lcd = lcd_init()
-    build_in_led = build_led_init()
+    build_in_led = build_in_led_init()
     fans = fans_init()
-    # wlan_status = wifi_connect(ssid, password)
-    wlan_status = 0
-
-    if wlan_status == 3:
-        BLYNK = Blynk(blynk_token)
-        build_in_led.on()
-        # Register virtual pin handler
-        @BLYNK.on("V2") #virtual pin V0
-        def v0_write_handler(value): #read the value
-            if int(value[0]) == 1:
-                led.value(1) #turn the led on        
-            else:
-                led.value(0) #turn the led off
-    else:
-        build_in_led.off()
-
+    pot =  temp_setting_pin_init()
+    build_in_led.off()
     utime.sleep(1)
     while True:
         try:
             cur_temp, cur_humi = dht11_get_temp_humi(sensor)
-            print(f"CT:{cur_temp}, CH:{cur_humi}, TS:{temp_setting}")
+            print(f"CT:{cur_temp}, CH:{cur_humi}, TS:{TEMP_SETTING_DEFAULT}")
             lcd_display_cur_temp_humi(lcd, cur_temp, cur_humi)
-            lcd_display_temp_setting(lcd, temp_setting)
-            auto_turnon_fans(fans, cur_temp, temp_setting)
-            if wlan_status == 3:
-                BLYNK.virtual_write(0, temp)
-                BLYNK.virtual_write(1, humi)
-                BLYNK.run()
+            lcd_display_cur_ts(lcd, TEMP_SETTING_DEFAULT)
+            temp_setting_pin_read(pot)
+            fans_auto_turn_on(fans, cur_temp, TEMP_SETTING_DEFAULT)
         except:
             print("The checksum of dht11 was invalid")
         utime.sleep(1)
